@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Elections = () => {
-    return (
-        <div>Elections</div>
-        );
-        }
+const  ElectionDetails = () => {
+  return (
+    <div>ElectionDetails</div>
+  )
+}
 
-        export default Elections;
+export default ElectionDetails
