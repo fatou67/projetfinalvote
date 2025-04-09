@@ -19,14 +19,21 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Login /> },
+      { path: 'login', element: <Login /> },
       { path: 'register', element: <Register /> },
       { path: 'results', element: <Results /> },
-      { path: 'election', element: <Elections /> },
-      { path: 'election/:id', element: <ElectionDetails /> },
-      { path: 'election/:id/candidates', element: <Candidates /> },
       { path: 'congrats', element: <Congrats /> },
       { path: 'logout', element: <Logout /> },
-      { path: 'login', element: <Login /> }
+      
+      // Routes pour les élections - version cohérente sans 's'
+      {
+        path: 'election',
+        children: [
+          { index: true, element: <Elections /> }, // /election
+          { path: ':id', element: <ElectionDetails /> }, // /election/:id
+          { path: ':id/candidates', element: <Candidates /> } // /election/:id/candidates
+        ]
+      }
     ]
   }
 ]);

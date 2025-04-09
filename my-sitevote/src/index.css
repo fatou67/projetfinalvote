@@ -318,65 +318,126 @@ A======================*/
 
 
 
-
-
-
-/*=================Elections
-A======================*/
-
-
-.elections{
-  margin: 5rem o;
+/* ============= ELECTIONS ============= */
+.elections {
+  margin: 4rem 0; /* Correction: remplacer 'o' par '0' */
+  padding: 0 2rem; /* Ajout de padding latéral */
 }
 
-.elections__header{
+.elections__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-
+  margin-bottom: 1rem; /* Espacement augmenté */
+  padding: 1rem;
+  flex-wrap: wrap; /* Permettre le retour à la ligne sur mobile */
+  gap: 1rem; /* Espacement entre éléments */
 }
 
-.elections__menu{
+.elections__menu {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem; /* Espacement réduit pour plus de densité */
 }
 
-.election{
+/* ============= ELECTION CARD ============= */
+.election {
   display: grid;
   grid-template-columns: 17rem auto;
   align-items: center;
-  background: var(--color-gap-0);
-  border-radius: var(---raduis-3);
+  background: var(--color-gray-0); /* Correction: 'gap' -> 'gray' */
+  border-radius: var(--radius-3); /* Correction: trois '-' -> deux */
   overflow: hidden;
-  border: 0.5rem solid var(--color-gap-0);
+  border: 0.5rem solid var(--color-gray-0); /* Correction: 'gap' -> 'gray' */
   transition: var(--transition);
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.05); /* Ombre subtile ajoutée */
 }
 
-.election__image{
-  margin-right: 13rem;
+.election:hover {
+  box-shadow: 0 0.8rem 1.5rem rgba(0, 0, 0, 0.1); /* Ombre améliorée */
+
+  border-color: var(--color-gray-100); /* Changement de bordure */
 }
 
-.election:hover{
-  box-shadow: 0 0.8rem rgba(0,0, 0, 0.1);
+.election__image {
+ max-height: 15rem;
+ 
 }
 
-.election__info{
-  padding: 1rem 2rem;
+.election__info {
+  padding: 1.3rem 2rem; /* Espacement augmenté */
 }
 
-.election__info h4{
+.election__info h4 {
   margin-bottom: 0.7rem;
   color: var(--color-primary);
-
+  font-size: 1.25rem; /* Taille de police augmentée */
 }
 
-.election__cta{
+.election__description {
+  color: var(--color-gray-600);
+  line-height: 1.6; /* Meilleure lisibilité */
+}
+
+.election__cta {
   display: flex;
-  gap: 1.2rem;
+  gap: 0.5rem; /* Espacement réduit */
   margin-top: 1rem;
+}
+
+
+/* ============= BOUTONS ============= */
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-1);
+  font-size: 0.9rem;
+  transition: var(--transition);
+  cursor: pointer;
+  border: none;
+}
+
+.btn.primary {
+  background: var(--color-primary);
+  color: white;
+}
+.btn.sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.btn.primary.sm{
+ 
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+/* ============= RESPONSIVE ============= */
+@media (max-width: 768px) {
+  .election {
+    grid-template-columns: 1fr; /* Passage en une colonne */
+  }
+  
+  .election__image {
+    height: 12rem; /* Hauteur fixe pour l'image */
+    margin-right: 0;
+  }
+  
+  .elections__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .elections {
+    padding: 0 1rem;
+    margin: 3rem 0;
+  }
+  
+  .election__cta {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
 }
 
 
@@ -448,7 +509,7 @@ A======================*/
   }
   
   /* Résultats */
-  .result {
+  .results {
     width: 100%;
     margin-bottom: 1.5rem;
   }
@@ -511,74 +572,299 @@ A======================*/
     padding: 0.75rem 1rem;
     font-size: 0.9rem;
   }
-}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-/*=Register ======================*/
-
-.register {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-}
-
-.register_container {
-  width: 35rem ;
-  background: var(--color-gray-0);
-  padding: 3rem ;
-  border-radius: var(--radius-5) ;
-}
-
-.register_container h2{
-  margin-bottom: 2rem;
-  color: var(--color-primary);
-}
-
-
-.register form {
+ .voters__table tbody tr {
   display: flex;
-  flex-direction: column ;
-  gap:1.5rem;
-}
-.register form input {
-  padding: 0.7rem ;
-  background: var(--color-gray-100);
-  border-radius: var(--radius-1);
-  color: var(--color-gray-900);
-}
+  flex-direction: column;
+ }
 
-.register form p > a{
-  color: var(--color-primary);
-  font-size: 500;
-}
-.form_error-message{
-  background: var(--color-danger);
-  color: var(--color-gap-0);
-  padding: 0.6rem 1.5rem;
-  border-radius: var(--radius-1)  ;
+  .voters__table tbody tr{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+  }
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+/* ============= STYLE DE BASE ============= */
+.register-page {
+  /* Organisation de la page */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  
+  /* Style visuel */
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* ============= CONTENEUR DU FORMULAIRE ============= */
+.register-form-container {
+  width: 100%;
+  max-width: 28rem; /* Largeur maximale réduite */
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  
+  /* Espacement depuis le haut */
+  margin-top: 2rem;
+}
+
+/* ============= TITRE ============= */
+.register-form-container h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+/* ============= FORMULAIRE ============= */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espacement entre les éléments */
+}
+
+/* ============= CHAMPS DE FORMULAIRE ============= */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.925rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+/* ============= BOUTON ============= */
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:hover {
+  background-color: #2563eb;
+}
+
+/* ============= MESSAGE D'ERREUR ============= */
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+/* ============= LIEN DE NAVIGATION ============= */
+.nav-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #64748b;
+  font-size: 0.925rem;
+}
+
+.nav-link a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.nav-link a:hover {
+  text-decoration: underline;
+}
+
+/* ============= VERSION MOBILE ============= */
+@media (max-width: 640px) {
+  .register-page {
+    padding: 1rem;
+  }
+  
+  .register-form-container {
+    padding: 1.75rem;
+  }
+  
+  .register-form-container h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* ============= LOGIN PAGE ============= */
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 28rem;
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+.login-form-container h2 {
+  text-align: center;
+  color: #1e293b;
+  margin-bottom: 2rem;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Réutilisation des styles communs depuis Register */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.925rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #2563eb;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+.nav-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #64748b;
+  font-size: 0.925rem;
+}
+
+.nav-link a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.nav-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .login-page {
+    padding: 1rem;
+  }
+  
+  .login-form-container {
+    padding: 1.75rem;
+  }
+  
+  .login-form-container h2 {
+    font-size: 1.5rem;
+  }
+}
 
 
 
@@ -662,7 +948,7 @@ A======================*/
   gap:1rem;
  }
  .result_candidate-loader{
-  display: flex;
+  display: block;
   width: 100%;
   height: 0.4rem ;
   background-color: var(--color-gray-100);
@@ -678,7 +964,13 @@ A======================*/
  }
 
 
- /* ============= CANDIDATE  ============= */
+
+
+ 
+
+
+ 
+ 
 
  /* ============= CANDIDATE ============= */
 .candidates {
@@ -689,7 +981,7 @@ A======================*/
 }
 
 .candidates_header {
-  display: flex;
+  display: block;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -795,26 +1087,127 @@ A======================*/
 
 
 
+/* ============= ElectionDetails ============= */
 
 
+.electionDetails{
+  margin: 5rem 0;
+}
 
+.electionDetails{
+  margin: 5rem 0;
+}
 
+.electionDetails__image{
+  height: 15rem;
+  margin: 1.2rem 0 0.8rem;
 
+}
 
+.electionDetails__candidates{
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,
+   minmax(35rem , 1fr));
+   gap: 3rem;
+   border-top: 2px solid var(--color-gray-200);
 
+}
+.electionCandidate{
+  background: var(--color-gray-0);
+  border-radius: var(--radius-4);
+  position: relative;
+  text-align: center;
+}
 
+.electionCandidate_image{
+ 
+  height: 15rem;
+  overflow: hidden;
 
+}
 
+.electionCandidate h5{
+  margin: 0.7rem 0 0.3rem;
+}
 
+.electionCandidate > div:nth-child(2) {
+  padding: 1.3rem ;
+}
 
+.electionCandidate__btn{
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 1rem;
+  background: var(--color-danger);
+  color: var(--color-gray-0);
+  padding: 0.5rem;
+  font-size: 1.1rem;
+  border-radius: 0.6rem ;
+  display: flex;
+}
 
+.electionCandidate__btn:hover {
+  background: var(--color-danger-900);
 
+}
+.add__candidate-btn{
+  background: var(--color-gray-100);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-4) ;
+  font-size: 5rem;
+  color: var(--color-primary);
+  box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.1);
+  display: grid;
+  place-items: center;
+  min-height: 15rem;
 
+}
 
+.voters__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
 
+.voters__table thead th {
+  text-align: left;
+  padding: 0.7rem 1.5rem;
+  background-color: var(--color-primary);
+  color: white;
+}
+/* Ajoutez ce CSS à votre fichier de styles */
+menu.voters h2 {
+  text-align: center;
+  margin: 1rem 0;
+  padding: 0.5rem;
 
+  font-size: 1.5rem;
+  font-weight: 600;
+  position: relative;
+}
 
+/* Option: Ajoute une petite barre décorative sous le titre */
+menu.voters h2::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 2px;
 
+  margin: 0.5rem auto 0;
+}
 
+.voters__table tbody td {
+  padding: 0.7rem 1.5rem;
+  border-bottom: 1px solid var(--color-gray-200);
+}
 
+.voters__table tbody tr:nth-child(odd) {
+  background-color: var(--color-gray-50);
+}
 
+.voters__table tbody tr:hover {
+  background-color: var(--color-gray-100);
+}

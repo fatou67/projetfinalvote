@@ -2,8 +2,13 @@ import {createSlice} from '@reduxjs/toolkit';
 
 
 
-const initialState = {addCandidateModalShowing : false, voteCandidateModalShowing :false, electionModalShowing:
-    false, updateElectionModalshowing: false, addElectionModalShowing: false}
+const initialState = {
+    addCandidateModalShowing: false,
+    voteCandidateModalShowing: false, 
+    electionModalShowing: false,
+    updateElectionModalShowing: false, // Correction du nommage
+    addElectionModalShowing: false
+}
 
 
 const uiSlice = createSlice({
@@ -31,7 +36,7 @@ const uiSlice = createSlice({
 
         },
 
-       openUpdateElectionModal(state) {
+        openUpdateElectionModal(state) {
             state.updateElectionModalShowing = true
         },
         closeUpdateElectionModal(state) {

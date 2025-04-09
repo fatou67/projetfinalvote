@@ -1,43 +1,106 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Register() {
-  const [userData, setUserData] = React.useState({fullName: '', email: '', password: '', password2: ''})
+  const [userData, setUserData] = React.useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
-  //function to chnge sur controlled inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData(prev => ({ ...prev, [name]: value }));
+  };
 
-const changeInputHandler = (e) => {
-  setUserData(prevState => {
-    return {...prevState, [e.target.name]: e.target.value}
-
-  })
-
-}
-console.log(userData)
-
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Validation et soumission ici
+    console.log('Données du formulaire:', userData);
+  };
 
   return (
-   <section className='register' >
-    <div className=' container register__container'>
-      <h2>Sign Up</h2>
-      <form>
-        <p className='form_error-message'> Any error from the backend</p>
-        <input type="text" name ='fullName' placeholder='Full Name' onChange={ changeInputHandler}   autoComplete='true'  autoFocus/>
-        <input type="email" name ='email' placeholder='Email Adress' onChange={ changeInputHandler}  autoComplete='true'/>
-        <input type="password" name ='password' placeholder='Password' onChange={ changeInputHandler}  autoComplete='true'/>
-        <input type="password" name ='password2' placeholder='Confirm Password' onChange={ changeInputHandler}  autoComplete='true' />
-        <p> Already have an account? <Link to='/Register'>sign in </Link></p>
-        <button type='submit' className='btn primary'>Register</button>
+    <section className="register-page">
+      <div className="register-form-container">
+        <h2>Create Account</h2>
         
+        <form className="register-form" onSubmit={handleSubmit}>
+          {/* Message d'erreur */}
+          <p className="error-message">Error messages appear here</p>
+          
+          {/* Champ Nom Complet */}
+          <div className="form-group">
+            <label htmlFor="fullName">Full Name</label>
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Enter your full name"
+              value={userData.fullName}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+          </div>
+          
+          {/* Champ Email */}
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              value={userData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          
+          {/* Champ Mot de passe */}
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Create a password"
+              value={userData.password}
+              onChange={handleChange}
+              minLength="6"
+              required
+            />
+          </div>
+          
+          {/* Confirmation Mot de passe */}
+          <div className="form-group">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Confirm your password"
+              value={userData.confirmPassword}
+              onChange={handleChange}
+              minLength="6"
+              required
+            />
+          </div>
+          
+          {/* Bouton de soumission */}
+          <button type="submit" className="submit-btn">
+            Register
+          </button>
+        </form>
         
-
-
-      </form>
-       
-    </div>
-   </section>
-  )
+        {/* Lien vers Login */}
+        <p className="nav-link">
+          Already have an account? <Link to="/login">Sign in</Link>
+        </p>
+      </div>
+    </section>
+  );
 }
 
-export default Register
+export default Register;

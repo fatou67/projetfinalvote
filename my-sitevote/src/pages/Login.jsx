@@ -1,44 +1,69 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
-  const [userData, setUserData] = React.useState({fullName: '', email: '', password: '', password2: ''})
+  const [userData, setUserData] = React.useState({
+    email: '',
+    password: ''
+  });
 
-  //function to chnge sur controlled inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData(prev => ({ ...prev, [name]: value }));
+  };
 
-const changeInputHandler = (e) => {
-  setUserData(prevState => {
-    return {...prevState, [e.target.name]: e.target.value}
-
-  })
-
-}
-
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Login data:', userData);
+    // Ajoutez ici la logique d'authentification
+  };
 
   return (
-   <section className='register' >
-    <div className=' container register__container'>
-      <h2>Sign in</h2>
-      <form>
-        <p className='form_error-message'> Any error from the backend</p>
-        <input type="text" name ='fullName' placeholder='Full Name' onChange=
-        { changeInputHandler}   autoComplete='true'  autoFocus/>
-       
-        <input type="password" name ='password' placeholder='Password' onChange=
-        { changeInputHandler}  autoComplete='true'/>
+    <section className="login-page">
+      <div className="login-form-container">
+        <h2>Welcome Back</h2>
         
-        <p> dont' have an account? <Link to='/register'>sign up  </Link></p>
-        <button type='submit' className='btn primary'>Login</button>
+        <form className="login-form" onSubmit={handleSubmit}>
+          <p className="error-message">Error messages appear here</p>
+          
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              value={userData.email}
+              onChange={handleChange}
+              required
+              autoFocus
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              value={userData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          
+          <button type="submit" className="submit-btn">
+            Sign In
+          </button>
+        </form>
         
-        
-
-
-      </form>
-       
-    </div>
-   </section>
-  )
+        <p className="nav-link">
+          Don't have an account? <Link to="/register">Sign up</Link>
+        </p>
+      </div>
+    </section>
+  );
 }
 
-export default Login
+export default Login;
