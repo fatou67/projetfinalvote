@@ -23,7 +23,7 @@ function Register() {
   return (
     <section className="register-page">
       <div className="register-form-container">
-        <h2>Create Account</h2>
+        <h2>Créer un compte</h2>
         
         <form className="register-form" onSubmit={handleSubmit}>
           {/* Message d'erreur */}

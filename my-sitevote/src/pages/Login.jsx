@@ -21,7 +21,7 @@ function Login() {
   return (
     <section className="login-page">
       <div className="login-form-container">
-        <h2>Welcome Back</h2>
+        <h2>Bienvenue à nouveau</h2>
         
         <form className="login-form" onSubmit={handleSubmit}>
           <p className="error-message">Error messages appear here</p>
