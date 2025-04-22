@@ -1,74 +1,43 @@
-import React from "react";
+
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import ElectionCandidate from '../components/ElectionCandidate';
 import AddCandidateModal from '../components/AddCandidateModal';
-import { elections, voters, candidates } from "../data";
-
-import { IoAddOutline} from "react-icons/io5";
+import { elections, candidates, voters } from "../data";
+import { IoAddOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { UiActions } from "../store/ui-slice";
 
 const ElectionDetails = () => {
+    const { id } = useParams();
+    const currentElection = elections.find(e => e.id === id);
+    const [electionCandidates, setElectionCandidates] = useState(candidates.filter(c => c.electionId === id));
 
-  const { id } = useParams();
+    const dispatch = useDispatch();
+    const modalShowing = useSelector(state => state.ui.addCandidateModalShowing);
 
-  const dispatch = useDispatch();
-  
-  const currentElection = elections.find(election => election.id === id);
-  const electionCandidates = candidates.filter(candidate => candidate.electionId === id);
-  const AddCandidateModalShowing = useSelector(state => state.ui.addCandidateModalShowing)
-  
+    const addCandidate = (newCandidate) => {
+        setElectionCandidates([...electionCandidates, { ...newCandidate, id: Date.now() }]);
+    };
 
-  // open add candidate modal
-const openModal = () => {
-  dispatch(UiActions.openAddCandidateModal())
-}
-
-
-
-  return(
-    <>
-    <section className="electionDetails">
-      <div className="container electionDetails__container">
-        <h2>{currentElection.title}</h2>
-        <p>{currentElection.description}</p>
-        <div className="electionDetails__image">
-          <img src={currentElection.thumbnail} alt={currentElection.title} />
-        </div>
-        <menu className="electionDetails__candidates">
-          {electionCandidates.map(candidate => 
-            <ElectionCandidate key={candidate.id} {...candidate} /> )}
-        </menu>
-        <button className="add__candidate-btn"onClick={openModal}><IoAddOutline/></button>
-        <menu className="voters">
-          <h2>Voters</h2>
-         
-          <table className="voters__table">
-            <thead>
-              <tr>
-                <th>Full Name</th>
-                <th>Email Address</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {voters.map(voter => (
-                <tr key={voter.Email}>
-                  <td><h5>{voter.fullName}</h5></td>
-                  <td>{voter.Email}</td>
-                  <td>14:43:34</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </menu>
-      </div>
-    </section>
-
-
-   {AddCandidateModalShowing &&  <AddCandidateModal/>}
-    </>
-  );
+    return (
+        <section className="electionDetails">
+            <div className="container electionDetails__container">
+                <h2>{currentElection.title}</h2>
+                <p>{currentElection.description}</p>
+                <img src={currentElection.thumbnail} alt={currentElection.title} className="electionDetails__image" />
+                <menu className="electionDetails__candidates">
+                    {electionCandidates.map(candidate => (
+                        <ElectionCandidate key={candidate.id} {...candidate} />
+                    ))}
+                </menu>
+                <button className="add__candidate-btn" onClick={() => dispatch(UiActions.openAddCandidateModal())}>
+                    <IoAddOutline/> Ajouter un candidat
+                </button>
+                {modalShowing && <AddCandidateModal onAddCandidate={addCandidate} />}
+            </div>
+        </section>
+    );
 };
 
 export default ElectionDetails;

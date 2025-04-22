@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import uiSlice  from "./ui-slice";
-import voteSlice from "./vote-slice";
-
-
+import uiReducer from "./ui-slice";
+import voteReducer from "./vote-slice";
 
 const store = configureStore({
-    reducer: { ui: uiSlice.reducer, vote: voteSlice.reducer},
-
-})
-  
+    reducer: { 
+        ui: uiReducer,
+        vote: voteReducer
+    }
+});
 
 export default store;

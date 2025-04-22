@@ -1,47 +1,55 @@
-import React from 'react'
-import { IoMdClose } from 'react-icons/io'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react';
+import { IoMdClose } from 'react-icons/io';
+import { useDispatch } from 'react-redux';
+import { UiActions } from '../store/ui-slice';
 
-const  AddCandidateModal =()  => {
-    const [ fullName , setFullName ] = React.useState('')
-    const [ motto , setMotto ] = React.useState('')
-    const [ image , setImage ] = React.useState('')
+const AddCandidateModal = ({ onAddCandidate }) => {
+    const [fullName, setFullName] = useState('');
+    const [motto, setMotto] = useState('');
+    const [image, setImage] = useState(null);
+    const [preview, setPreview] = useState('');
 
-    const dispatch = useDispatch()
-    //close add candidate modal 
+    const dispatch = useDispatch();
+
     const closeModal = () => {
-        dispatch (UiActions.closeAddCandidateModal())
-    }
-  return (
-    <section  className="modal">
-        <div className="modal__content">
-            <header className='modal__header'>
-                <h4>Add Candidate</h4> 
-                <button className="Close__modal" onClick={close}><IoMdClose/></button>
-                
-                  <form >
-                    <div>
-                        <h6> Candidate Name</h6>
-                        <input type="text" value={fullName} name="fullName" onChange={e => setFullName(e.target.value)}/>
-                    </div>
-                    <div>
-                        <h6> Candidate Motto</h6>
-                        <input type="text" value={motto} name="motto" onChange={e => setMotto(e.target.value)}/>
-                    </div>
-                    <div>
-                        <h6> Candidate Image</h6>
-                        <input type="file"  name="Image" onChange={e => setImage(e.target.files[0])} accept='png, jpg ,jpeg,webp, avif'/>
-                    </div>
-                    <button type="submit" className="btn btn-primary">Add Candidate</button>
-                  </form>
-                
-    </header>
+        dispatch(UiActions.closeAddCandidateModal());
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+        setPreview(URL.createObjectURL(file)); 
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onAddCandidate({ fullName, motto, image: preview });
+        setFullName('');
+        setMotto('');
+        setImage(null);
+        setPreview('');
+        closeModal();
+    };
+
+    return (
+        <div className="modal">
+            <div className="modal__content">
+                <header className='modal__header'>
+                    <h4>Ajouter un candidat</h4>
+                    <button className="close__modal" onClick={closeModal}>
+                        <IoMdClose/>
+                    </button>
+                </header>
+                <form onSubmit={handleSubmit}>
+                    <input type="text" placeholder="Nom du candidat" value={fullName} onChange={e => setFullName(e.target.value)} required />
+                    <input type="text" placeholder="Slogan" value={motto} onChange={e => setMotto(e.target.value)} required />
+                    <input type="file" accept="image/*" onChange={handleImageChange} required />
+                    {preview && <img src={preview} alt="Aperçu" className="preview" />}
+                    <button type="submit">Ajouter</button>
+                </form>
+            </div>
         </div>
+    );
+};
 
-    </section>
-
-
-  )
-}
-
-export default AddCandidateModal
+export default AddCandidateModal;

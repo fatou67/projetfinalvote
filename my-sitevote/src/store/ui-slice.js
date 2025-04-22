@@ -1,49 +1,45 @@
-import {createSlice} from '@reduxjs/toolkit';
-
-
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     addCandidateModalShowing: false,
-    voteCandidateModalShowing: false, 
+    voteCandidateModalShowing: false,
     electionModalShowing: false,
-    updateElectionModalShowing: false, // Correction du nommage
+    updateElectionModalShowing: false,
     addElectionModalShowing: false
-}
-
+};
 
 const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
         openAddCandidateModal(state) {
-            state.addCandidateModalShowing = true
+            state.addCandidateModalShowing = true;
         },
         closeAddCandidateModal(state) {
-            state.addCandidateModalShowing = false
+            state.addCandidateModalShowing = false;
         },
-
         openVoteCandidateModal(state) {
-            state.voteCandidateModalShowing = true
+            state.voteCandidateModalShowing = true;
         },
         closeVoteCandidateModal(state) {
-            state.voteCandidateModalShowing = false
+            state.voteCandidateModalShowing = false;
         },
         openElectionModal(state) {
-            state.electionModalShowing = true
+            state.electionModalShowing = true;
         },
         closeElectionModal(state) {
-            state.electionModalShowing = false
-
+            state.electionModalShowing = false;
         },
-
         openUpdateElectionModal(state) {
-            state.updateElectionModalShowing = true
+            state.updateElectionModalShowing = true;
         },
         closeUpdateElectionModal(state) {
-            state.updateElectionModalShowing = false
+            state.updateElectionModalShowing = false;
         }
-}
-    })
-    export const UiActions= uiSlice.actions;
+    }
+});
 
-    export default uiSlice;
+export const UiActions = uiSlice.actions;
+
+// Export du reducer par défaut (UNE SEULE FOIS)
+export default uiSlice.reducer;

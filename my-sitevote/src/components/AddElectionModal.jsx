@@ -1,62 +1,55 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { IoMdClose } from 'react-icons/io';
-import { UiActions } from '../store/ui-slice'; // Importez les actions depuis votre slice
+import { useDispatch } from 'react-redux';
+import { UiActions } from '../store/ui-slice'; // Import correct
 
 const AddElectionModal = () => {
-    const [title, setTitle] = React.useState('');
-    const [description, setDescription] = React.useState('');
-    const [thumbnail, setThumbnail] = React.useState('');
-    
+    const [electionName, setElectionName] = React.useState('');
+    const [electionDate, setElectionDate] = React.useState('');
+   
     const dispatch = useDispatch();
-
-    // Fermeture du modal
+    
     const closeModal = () => {
-        dispatch(UiActions.closeElectionModal()); // Utilisez UiActions
+        dispatch(UiActions.closeAddElectionModal()); 
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Logic to add election
+        closeModal();
     };
 
     return (
-        <section className='modal'>
-            <div className='modal_content'>
-                <header className='modal_header'>
-                    <h4>Créez une nouvelle élection</h4>
-                    <button className='modal_close' onClick={closeModal}>
+        <section className="modal">
+            <div className="modal__content">
+                <header className='modal__header'>
+                    <h4>Add Election</h4> 
+                    <button className="close__modal" onClick={closeModal}>
                         <IoMdClose/>
                     </button>
                 </header>
-                <form onSubmit={(e) => {
-                    e.preventDefault();
-                    console.log('New election:', { title, description, thumbnail });
-                }}>
+                
+                <form onSubmit={handleSubmit}>
                     <div>
-                        <h6>Titre de l'élection</h6>
+                        <h6>Election Name</h6>
                         <input 
                             type="text" 
-                            value={title} 
-                            onChange={(e) => setTitle(e.target.value)} 
-                            name='title' 
+                            value={electionName}
+                            onChange={(e) => setElectionName(e.target.value)}
+                            required
                         />
                     </div>
                     <div>
-                        <h6>Description de l'élection</h6>
+                        <h6>Election Date</h6>
                         <input 
-                            type="text" 
-                            value={description} 
-                            onChange={(e) => setDescription(e.target.value)} 
-                            name='description' 
+                            type="date" 
+                            value={electionDate}
+                            onChange={(e) => setElectionDate(e.target.value)}
+                            required
                         />
                     </div>
-                    <div>
-                        <h6>Image de l'élection</h6>
-                        <input 
-                            type="file" 
-                            name='thumbnail'  
-                            onChange={e => setThumbnail(e.target.files[0])} 
-                            accept="image/png, image/jpeg, image/webp, image/avif"
-                        />
-                    </div>
-                    <button type='submit' className='btn primary'>
-                        Ajouter l'élection
+                    <button type="submit" className="btn btn-primary">
+                        Add Election
                     </button>
                 </form>
             </div>

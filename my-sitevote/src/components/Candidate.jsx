@@ -1,4 +1,3 @@
-// Candidate.jsx
 import React from 'react';
 import { UiActions } from '../store/ui-slice';
 import { useDispatch } from 'react-redux';
@@ -7,10 +6,11 @@ import { voterActions } from '../store/vote-slice';
 const Candidate = ({ image, id, fullName = '', motto = '' }) => {
   const dispatch = useDispatch();
 
-  console.log("Candidate:", { image, id, fullName, motto }); // Débogage
+  console.log("Candidate Info:", { image, id, fullName, motto });
 
-  // Ouvrir la fenêtre de confirmation du vote
+  // Fonction pour ouvrir la fenêtre de confirmation du vote
   const openCandidateModal = () => {
+    console.log(`Vote pour le candidat ID: ${id}`); 
     dispatch(UiActions.openVoteCandidateModal());
     dispatch(voterActions.changeSelectedVoteCandidate(id));
   };
@@ -18,13 +18,17 @@ const Candidate = ({ image, id, fullName = '', motto = '' }) => {
   return (
     <article className='candidate'>
       <div className='candidate_image'>
-        <img src={image} alt={fullName || 'Candidate Image'} />
+        {image ? (
+          <img src={image} alt={fullName || 'Candidate Image'} />
+        ) : (
+          <p>Image non disponible</p>
+        )}
       </div>
       <h5>
-        {fullName.length > 20 ? fullName.substring(0, 20) + '...' : fullName}
+        {fullName?.length > 20 ? fullName.substring(0, 20) + '...' : fullName}
       </h5>
       <small>
-        {motto.length > 25 ? motto.substring(0, 25) + '...' : motto}
+        {motto?.length > 25 ? motto.substring(0, 25) + '...' : motto}
       </small>
       <button className='btn primary' onClick={openCandidateModal}>
         Vote

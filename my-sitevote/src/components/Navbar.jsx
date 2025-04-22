@@ -27,7 +27,7 @@ const Navbar = () => {
     }
   }, [darkTheme]);
 
-  // Fermer le menu si la fenêtre est redimensionnée au-dessus de 768px
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {

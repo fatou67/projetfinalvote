@@ -26,8 +26,7 @@ function Register() {
         <h2>Créer un compte</h2>
         
         <form className="register-form" onSubmit={handleSubmit}>
-          {/* Message d'erreur */}
-          <p className="error-message">Error messages appear here</p>
+        
           
           {/* Champ Nom Complet */}
           <div className="form-group">

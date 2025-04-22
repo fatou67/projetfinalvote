@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = React.useState({
     email: '',
     password: ''
@@ -15,7 +17,10 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Login data:', userData);
-    // Ajoutez ici la logique d'authentification
+
+    // Simuler une connexion réussie
+    localStorage.setItem('userToken', 'fake-token');
+    navigate('/elections');
   };
 
   return (
@@ -24,8 +29,6 @@ function Login() {
         <h2>Bienvenue à nouveau</h2>
         
         <form className="login-form" onSubmit={handleSubmit}>
-          <p className="error-message">Error messages appear here</p>
-          
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
             <input
