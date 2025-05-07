@@ -5,22 +5,23 @@ import { elections as dummyElections } from '../data';
 import Election from '../components/Election';
 import AddElectionModal from '../components/AddElectionModal';
 import UpdateElectionModal from '../components/updateElectionModal';
-import { useNavigate } from 'react-router-dom';
+
+//import { useNavigate } from 'react-router-dom';
 
 const Elections = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const electionModalShowing = useSelector((state) => state.ui.electionModalShowing);
   const updateElectionModalShowing = useSelector((state) => state.ui.updateModalShowing);
 
   // 🚨 Protéger l'accès à la page
-  useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    if (!token) {
-      navigate('/login');
-    }
-  }, [navigate]);
+  //useEffect(() => {
+    //const token = localStorage.getItem('userToken');
+    //if (!token) {
+      //navigate('/login');
+   // }
+  //}, [navigate]);
 
   const handleCreateElection = () => {
     dispatch(UiActions.openElectionModal());
@@ -30,6 +31,7 @@ const Elections = () => {
     <>
       <section className='elections'>
         <div className='container elections__container'>
+          
           <header className='elections__header'>
             <h1>Élections en cours</h1>
             <button className='btn primary' onClick={handleCreateElection}>

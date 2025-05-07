@@ -21,7 +21,7 @@ const  Election = ({ id, title, description, thumbnail }) => {
   return (
    
     <article className="election" >
-        <div className='election__image'>
+       <div className='election__image'>
             <img src={thumbnail}  alt={title} />
 </div>
 
@@ -34,7 +34,7 @@ const  Election = ({ id, title, description, thumbnail }) => {
             description}</p>
           <div className='election__cta'>
   <Link to={`/election/${id}`} className="btn secondary sm">View</Link>
-  <button className='btn sm primary'onClick={openModal}>Edit</button>
+
 </div>
      </div>
 

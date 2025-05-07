@@ -1,22 +1,39 @@
 import React from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
-import { UiActions } from '../store/ui-slice'; // Import correct
+import { UiActions } from '../store/ui-slice';
+import axios from 'axios';
+
 
 const AddElectionModal = () => {
     const [electionName, setElectionName] = React.useState('');
     const [electionDate, setElectionDate] = React.useState('');
-   
+    const [error, setError] = React.useState(null);
+
     const dispatch = useDispatch();
     
     const closeModal = () => {
         dispatch(UiActions.closeAddElectionModal()); 
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic to add election
-        closeModal();
+
+        try {
+            const payload = {
+                title: electionName,
+                description: `Election scheduled on ${electionDate}`,
+                thumbnail: new Date().toISOString() // ou un champ réel si tu gères les images
+            };
+
+            await axios.post('http://localhost:5000/api/elections', payload);
+
+            // Tu peux aussi déclencher une action Redux ici pour rafraîchir la liste
+            closeModal();
+        } catch (err) {
+            console.error('Failed to add election:', err);
+            setError('Failed to add election');
+        }
     };
 
     return (
@@ -48,6 +65,7 @@ const AddElectionModal = () => {
                             required
                         />
                     </div>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                     <button type="submit" className="btn btn-primary">
                         Add Election
                     </button>

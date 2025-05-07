@@ -1,7 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function Register() {
+export default function Register() {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = React.useState({
     fullName: '',
     email: '',
@@ -14,21 +17,44 @@ function Register() {
     setUserData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Validation et soumission ici
-    console.log('Données du formulaire:', userData);
+
+    if (userData.password !== userData.confirmPassword) {
+      alert("Les mots de passe ne correspondent pas !");
+      return;
+    }
+
+    const payload = {
+      fullName: userData.fullName,
+      email: userData.email,
+      password: userData.password,
+      password2: userData.confirmPassword,
+    };
+
+    console.log("📤 Données envoyées :", payload);
+
+    try {
+      const res = await axios.post('http://localhost:5000/api/voters/register', payload);
+      console.log(" Réponse du serveur :", res.data);
+
+      localStorage.setItem("voterInfo", JSON.stringify(res.data));
+
+      alert("Compte créé et connecté avec succès !");
+      navigate('/election');
+    } catch (error) {
+      console.error("❌ Erreur complète :", error);
+      console.error("❌ Message :", error.response?.data?.message || error.message);
+      alert("Erreur lors de l'inscription !");
+    }
   };
 
   return (
     <section className="register-page">
       <div className="register-form-container">
         <h2>Créer un compte</h2>
-        
+
         <form className="register-form" onSubmit={handleSubmit}>
-        
-          
-          {/* Champ Nom Complet */}
           <div className="form-group">
             <label htmlFor="fullName">Full Name</label>
             <input
@@ -42,8 +68,7 @@ function Register() {
               autoFocus
             />
           </div>
-          
-          {/* Champ Email */}
+
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
             <input
@@ -56,8 +81,7 @@ function Register() {
               required
             />
           </div>
-          
-          {/* Champ Mot de passe */}
+
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -71,8 +95,7 @@ function Register() {
               required
             />
           </div>
-          
-          {/* Confirmation Mot de passe */}
+
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
@@ -86,14 +109,12 @@ function Register() {
               required
             />
           </div>
-          
-          {/* Bouton de soumission */}
+
           <button type="submit" className="submit-btn">
             Register
           </button>
         </form>
-        
-        {/* Lien vers Login */}
+
         <p className="nav-link">
           Already have an account? <Link to="/login">Sign in</Link>
         </p>
@@ -101,5 +122,3 @@ function Register() {
     </section>
   );
 }
-
-export default Register;

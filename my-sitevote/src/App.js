@@ -1,67 +1,63 @@
 import React from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+// Layouts et pages
 import RootLayout from './pages/RootLayout';
 import ErrorPage from './pages/ErrorPage';
+import HomePage from './pages/HomePage';
+import AuthPage from './pages/AuthPage';
+import HelpPage from './pages/HelpPage';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Login from './pages/Login';
 import Register from './pages/Register';
 import Results from './pages/Results';
 import Elections from './pages/Elections';
-import Candidates from './pages/Candidates';
 import ElectionDetails from './pages/ElectionDetails';
+import Candidates from './pages/Candidates';
 import Congrats from './pages/Congrats';
-import Login from './pages/Login';
 import Logout from './pages/Logout';
+
+// Admin
 import AdminLayout from './pages/Admin/AdminLayout';
 import AdminDashboard from './pages/Admin/AdminDashboard';
 import AdminElections from './pages/Admin/AdminElections';
 import AdminCandidates from './pages/Admin/AdminCandidates';
 import AdminVotes from './pages/Admin/AdminVotes';
-import HomePage from './pages/HomePage'; // Nouvelle page d'accueil avec sidebar
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    errorElement: <ErrorPage />,
-    children: [
-      // Page d'accueil avec présentation et sidebar
-      { index: true, element: <HomePage /> },
-      
-      // Pages d'authentification
-      { path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
-      
-      // Routes principales
-      { path: 'results', element: <Results /> },
-      { path: 'congrats', element: <Congrats /> },
-      { path: 'logout', element: <Logout /> },
-      
-      // Section Élections
-      {
-        path: 'election', // Changé de 'election' à 'elections' pour plus de clarté
-        children: [
-          { index: true, element: <Elections /> },
-          { path: ':id', element: <ElectionDetails /> },
-          { path: ':id/candidates', element: <Candidates /> }
-        ]
-      },
+const App = () => {
+  return (
+    <Router>
+      <Routes>
+        {/* Regroupe toutes les routes dans RootLayout */}
+        <Route path="/" element={<RootLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="auth" element={<AuthPage />} />
+          <Route path="help" element={<HelpPage />} />
+          <Route path="privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="results" element={<Results />} />
+          <Route path="congrats" element={<Congrats />} />
+          <Route path="logout" element={<Logout />} />
 
-      // Section Admin
-      {
-        path: 'admin',
-        element: <AdminLayout />,
-        children: [
-          { index: true, element: <AdminDashboard /> },
-          { path: 'votes', element: <AdminVotes /> },
-          { path: 'elections', element: <AdminElections /> },
-          { path: 'candidates', element: <AdminCandidates /> }
-        ]
-      }
-    ]
-  }
-]);
+          <Route path="election" element={<Elections />} />
+          <Route path="election/:id" element={<ElectionDetails />} />
+          <Route path="election/:id/candidates" element={<Candidates />} />
 
-function App() {
-  return <RouterProvider router={router} />;
-}
+          {/* Routes Admin imbriquées */}
+          <Route path="admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="votes" element={<AdminVotes />} />
+            <Route path="elections" element={<AdminElections />} />
+            <Route path="candidates" element={<AdminCandidates />} />
+          </Route>
+        </Route>
+
+        {/* Fallback 404 */}
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
+  );
+};
 
 export default App;

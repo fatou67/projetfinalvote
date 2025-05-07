@@ -15,7 +15,7 @@ export default function HeroSection() {
         <Link to="/login">
   <button className="mt-8 bg-blue-600 hover:bg-blue-700 text-white py-4 px-8 rounded-xl text-xl shadow-lg transition duration-300">
     🗳️ Voter maintenant
-  </button>
+  </button> 
 </Link>
   </div>
 
